@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-buildingemotions-dev-140405-authRole",
+      "UnauthRoleArn": "arn:aws:iam::277346655094:role/amplify-buildingemotions-dev-140405-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::277346655094:role/amplify-buildingemotions-dev-140405-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-buildingemotions-dev-140405-deployment",
+      "UnauthRoleName": "amplify-buildingemotions-dev-140405-unauthRole",
+      "StackName": "amplify-buildingemotions-dev-140405",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:277346655094:stack/amplify-buildingemotions-dev-140405/1b66ee80-5a31-11eb-a930-0a326cc6f6b0",
+      "AmplifyAppId": "d1r3zzpozd8dnj"
+    },
+    "categories": {
+      "auth": {
+        "buildingemotions4b32615d": {}
+      }
+    }
+  }
+}

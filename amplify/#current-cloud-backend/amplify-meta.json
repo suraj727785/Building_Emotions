@@ -1,0 +1,63 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-buildingemotions-dev-140405-authRole",
+      "UnauthRoleArn": "arn:aws:iam::277346655094:role/amplify-buildingemotions-dev-140405-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::277346655094:role/amplify-buildingemotions-dev-140405-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-buildingemotions-dev-140405-deployment",
+      "UnauthRoleName": "amplify-buildingemotions-dev-140405-unauthRole",
+      "StackName": "amplify-buildingemotions-dev-140405",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:277346655094:stack/amplify-buildingemotions-dev-140405/1b66ee80-5a31-11eb-a930-0a326cc6f6b0",
+      "AmplifyAppId": "d1r3zzpozd8dnj"
+    }
+  },
+  "auth": {
+    "buildingemotions4b32615d": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-buildingemotions-dev-140405-deployment/amplify-cfn-templates/auth/buildingemotions4b32615d-cloudformation-template.yml",
+        "logicalId": "authbuildingemotions4b32615d"
+      },
+      "lastPushTimeStamp": "2021-01-22T19:49:29.654Z",
+      "output": {
+        "AppClientSecret": "10n0rpidocj099jfrot26l80rcuciafh2dsfqjhlga63lpv21m2n",
+        "UserPoolId": "ap-northeast-1_MJ0RgXlaO",
+        "AppClientIDWeb": "251batltsmq50m82jvkrt1rr71",
+        "AppClientID": "438sn09vtmgalpd4s8nakmcca7",
+        "IdentityPoolId": "ap-northeast-1:7019bde4-2d06-4c9c-a03a-227fa3d9758f",
+        "IdentityPoolName": "buildingemotions4b32615d_identitypool_4b32615d__dev",
+        "UserPoolName": "buildingemotions4b32615d_userpool_4b32615d"
+      },
+      "lastPushDirHash": "HyqiJkwtcAb1RSNWIws/Tk2Vu8A="
+    }
+  },
+  "api": {
+    "buildingemotions": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authbuildingemotions4b32615d"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "j5e5gmnxrzbmdmq7hfz4i7zd7y",
+        "GraphQLAPIEndpointOutput": "https://lpndu2so5bah5bglxw62gt2s4y.appsync-api.ap-northeast-1.amazonaws.com/graphql"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-buildingemotions-dev-140405-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apibuildingemotions"
+      },
+      "lastPushTimeStamp": "2021-01-22T19:49:33.399Z",
+      "lastPushDirHash": "nopZ+cSIW+ZfE9O+UaYAt+tKnqk="
+    }
+  }
+}

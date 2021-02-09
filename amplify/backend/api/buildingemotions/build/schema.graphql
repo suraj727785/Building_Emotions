@@ -1,0 +1,669 @@
+type User {
+  id: ID!
+  name: String!
+  familyUser(familyID: ModelIDKeyConditionInput, filter: ModelFamilyUserFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFamilyUserConnection
+  diary(name: ModelStringKeyConditionInput, filter: ModelDiaryFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelDiaryConnection
+  todo(name: ModelStringKeyConditionInput, filter: ModelTodoFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelTodoConnection
+  medicine(name: ModelStringKeyConditionInput, filter: ModelMedicineFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMedicineConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type FamilyUser {
+  id: ID!
+  userID: ID!
+  familyID: ID!
+  user: User
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Family {
+  id: ID!
+  familyUsers(userID: ModelIDKeyConditionInput, filter: ModelFamilyUserFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFamilyUserConnection
+  healthReport(userID: ModelIDKeyConditionInput, filter: ModelHealthReportFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelHealthReportConnection
+  reciepe(userID: ModelIDKeyConditionInput, filter: ModelReciepeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelReciepeConnection
+  result(userID: ModelIDKeyConditionInput, filter: ModelResultFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelResultConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type HealthReport {
+  id: ID!
+  userID: ID!
+  familyID: ID!
+  reportName: String!
+  reportImageUri: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Result {
+  id: ID!
+  userID: ID!
+  familyID: ID!
+  resultName: String!
+  resultImageUri: String!
+  resultPercentage: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Reciepe {
+  id: ID!
+  userID: ID!
+  familyID: ID!
+  reciepeName: String!
+  reciepeImageUri: String
+  reciepeContent: String
+  reciepeIngredient: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Diary {
+  id: ID!
+  userID: ID!
+  name: String!
+  content: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Todo {
+  id: ID!
+  userID: ID!
+  name: String!
+  date: String
+  time: String
+  content: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Medicine {
+  id: ID!
+  userID: ID!
+  name: String!
+  time: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelUserConnection {
+  items: [User]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelUserFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getUser(id: ID!): User
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
+  getFamilyUser(id: ID!): FamilyUser
+  listFamilyUsers(filter: ModelFamilyUserFilterInput, limit: Int, nextToken: String): ModelFamilyUserConnection
+  getFamily(id: ID!): Family
+  listFamilys(filter: ModelFamilyFilterInput, limit: Int, nextToken: String): ModelFamilyConnection
+  getHealthReport(id: ID!): HealthReport
+  listHealthReports(filter: ModelHealthReportFilterInput, limit: Int, nextToken: String): ModelHealthReportConnection
+  getResult(id: ID!): Result
+  listResults(filter: ModelResultFilterInput, limit: Int, nextToken: String): ModelResultConnection
+  getReciepe(id: ID!): Reciepe
+  listReciepes(filter: ModelReciepeFilterInput, limit: Int, nextToken: String): ModelReciepeConnection
+  getDiary(id: ID!): Diary
+  listDiarys(filter: ModelDiaryFilterInput, limit: Int, nextToken: String): ModelDiaryConnection
+  getTodo(id: ID!): Todo
+  listTodos(filter: ModelTodoFilterInput, limit: Int, nextToken: String): ModelTodoConnection
+  getMedicine(id: ID!): Medicine
+  listMedicines(filter: ModelMedicineFilterInput, limit: Int, nextToken: String): ModelMedicineConnection
+}
+
+input CreateUserInput {
+  id: ID
+  name: String!
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+}
+
+input DeleteUserInput {
+  id: ID
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User
+  createFamilyUser(input: CreateFamilyUserInput!, condition: ModelFamilyUserConditionInput): FamilyUser
+  updateFamilyUser(input: UpdateFamilyUserInput!, condition: ModelFamilyUserConditionInput): FamilyUser
+  deleteFamilyUser(input: DeleteFamilyUserInput!, condition: ModelFamilyUserConditionInput): FamilyUser
+  createFamily(input: CreateFamilyInput!, condition: ModelFamilyConditionInput): Family
+  updateFamily(input: UpdateFamilyInput!, condition: ModelFamilyConditionInput): Family
+  deleteFamily(input: DeleteFamilyInput!, condition: ModelFamilyConditionInput): Family
+  createHealthReport(input: CreateHealthReportInput!, condition: ModelHealthReportConditionInput): HealthReport
+  updateHealthReport(input: UpdateHealthReportInput!, condition: ModelHealthReportConditionInput): HealthReport
+  deleteHealthReport(input: DeleteHealthReportInput!, condition: ModelHealthReportConditionInput): HealthReport
+  createResult(input: CreateResultInput!, condition: ModelResultConditionInput): Result
+  updateResult(input: UpdateResultInput!, condition: ModelResultConditionInput): Result
+  deleteResult(input: DeleteResultInput!, condition: ModelResultConditionInput): Result
+  createReciepe(input: CreateReciepeInput!, condition: ModelReciepeConditionInput): Reciepe
+  updateReciepe(input: UpdateReciepeInput!, condition: ModelReciepeConditionInput): Reciepe
+  deleteReciepe(input: DeleteReciepeInput!, condition: ModelReciepeConditionInput): Reciepe
+  createDiary(input: CreateDiaryInput!, condition: ModelDiaryConditionInput): Diary
+  updateDiary(input: UpdateDiaryInput!, condition: ModelDiaryConditionInput): Diary
+  deleteDiary(input: DeleteDiaryInput!, condition: ModelDiaryConditionInput): Diary
+  createTodo(input: CreateTodoInput!, condition: ModelTodoConditionInput): Todo
+  updateTodo(input: UpdateTodoInput!, condition: ModelTodoConditionInput): Todo
+  deleteTodo(input: DeleteTodoInput!, condition: ModelTodoConditionInput): Todo
+  createMedicine(input: CreateMedicineInput!, condition: ModelMedicineConditionInput): Medicine
+  updateMedicine(input: UpdateMedicineInput!, condition: ModelMedicineConditionInput): Medicine
+  deleteMedicine(input: DeleteMedicineInput!, condition: ModelMedicineConditionInput): Medicine
+}
+
+input ModelUserConditionInput {
+  name: ModelStringInput
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+type Subscription {
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"])
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
+  onCreateFamilyUser: FamilyUser @aws_subscribe(mutations: ["createFamilyUser"])
+  onUpdateFamilyUser: FamilyUser @aws_subscribe(mutations: ["updateFamilyUser"])
+  onDeleteFamilyUser: FamilyUser @aws_subscribe(mutations: ["deleteFamilyUser"])
+  onCreateFamily: Family @aws_subscribe(mutations: ["createFamily"])
+  onUpdateFamily: Family @aws_subscribe(mutations: ["updateFamily"])
+  onDeleteFamily: Family @aws_subscribe(mutations: ["deleteFamily"])
+  onCreateHealthReport: HealthReport @aws_subscribe(mutations: ["createHealthReport"])
+  onUpdateHealthReport: HealthReport @aws_subscribe(mutations: ["updateHealthReport"])
+  onDeleteHealthReport: HealthReport @aws_subscribe(mutations: ["deleteHealthReport"])
+  onCreateResult: Result @aws_subscribe(mutations: ["createResult"])
+  onUpdateResult: Result @aws_subscribe(mutations: ["updateResult"])
+  onDeleteResult: Result @aws_subscribe(mutations: ["deleteResult"])
+  onCreateReciepe: Reciepe @aws_subscribe(mutations: ["createReciepe"])
+  onUpdateReciepe: Reciepe @aws_subscribe(mutations: ["updateReciepe"])
+  onDeleteReciepe: Reciepe @aws_subscribe(mutations: ["deleteReciepe"])
+  onCreateDiary: Diary @aws_subscribe(mutations: ["createDiary"])
+  onUpdateDiary: Diary @aws_subscribe(mutations: ["updateDiary"])
+  onDeleteDiary: Diary @aws_subscribe(mutations: ["deleteDiary"])
+  onCreateTodo: Todo @aws_subscribe(mutations: ["createTodo"])
+  onUpdateTodo: Todo @aws_subscribe(mutations: ["updateTodo"])
+  onDeleteTodo: Todo @aws_subscribe(mutations: ["deleteTodo"])
+  onCreateMedicine: Medicine @aws_subscribe(mutations: ["createMedicine"])
+  onUpdateMedicine: Medicine @aws_subscribe(mutations: ["updateMedicine"])
+  onDeleteMedicine: Medicine @aws_subscribe(mutations: ["deleteMedicine"])
+}
+
+type ModelFamilyUserConnection {
+  items: [FamilyUser]
+  nextToken: String
+}
+
+input ModelFamilyUserFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  and: [ModelFamilyUserFilterInput]
+  or: [ModelFamilyUserFilterInput]
+  not: ModelFamilyUserFilterInput
+}
+
+input CreateFamilyUserInput {
+  id: ID
+  userID: ID!
+  familyID: ID!
+}
+
+input UpdateFamilyUserInput {
+  id: ID!
+  userID: ID
+  familyID: ID
+}
+
+input DeleteFamilyUserInput {
+  id: ID
+}
+
+input ModelFamilyUserConditionInput {
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  and: [ModelFamilyUserConditionInput]
+  or: [ModelFamilyUserConditionInput]
+  not: ModelFamilyUserConditionInput
+}
+
+type ModelFamilyConnection {
+  items: [Family]
+  nextToken: String
+}
+
+input ModelFamilyFilterInput {
+  id: ModelIDInput
+  and: [ModelFamilyFilterInput]
+  or: [ModelFamilyFilterInput]
+  not: ModelFamilyFilterInput
+}
+
+input CreateFamilyInput {
+  id: ID
+}
+
+input UpdateFamilyInput {
+  id: ID!
+}
+
+input DeleteFamilyInput {
+  id: ID
+}
+
+input ModelFamilyConditionInput {
+  and: [ModelFamilyConditionInput]
+  or: [ModelFamilyConditionInput]
+  not: ModelFamilyConditionInput
+}
+
+type ModelHealthReportConnection {
+  items: [HealthReport]
+  nextToken: String
+}
+
+input ModelHealthReportFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  reportName: ModelStringInput
+  reportImageUri: ModelStringInput
+  and: [ModelHealthReportFilterInput]
+  or: [ModelHealthReportFilterInput]
+  not: ModelHealthReportFilterInput
+}
+
+input CreateHealthReportInput {
+  id: ID
+  userID: ID!
+  familyID: ID!
+  reportName: String!
+  reportImageUri: String!
+}
+
+input UpdateHealthReportInput {
+  id: ID!
+  userID: ID
+  familyID: ID
+  reportName: String
+  reportImageUri: String
+}
+
+input DeleteHealthReportInput {
+  id: ID
+}
+
+input ModelHealthReportConditionInput {
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  reportName: ModelStringInput
+  reportImageUri: ModelStringInput
+  and: [ModelHealthReportConditionInput]
+  or: [ModelHealthReportConditionInput]
+  not: ModelHealthReportConditionInput
+}
+
+type ModelResultConnection {
+  items: [Result]
+  nextToken: String
+}
+
+input ModelResultFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  resultName: ModelStringInput
+  resultImageUri: ModelStringInput
+  resultPercentage: ModelStringInput
+  and: [ModelResultFilterInput]
+  or: [ModelResultFilterInput]
+  not: ModelResultFilterInput
+}
+
+input CreateResultInput {
+  id: ID
+  userID: ID!
+  familyID: ID!
+  resultName: String!
+  resultImageUri: String!
+  resultPercentage: String
+}
+
+input UpdateResultInput {
+  id: ID!
+  userID: ID
+  familyID: ID
+  resultName: String
+  resultImageUri: String
+  resultPercentage: String
+}
+
+input DeleteResultInput {
+  id: ID
+}
+
+input ModelResultConditionInput {
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  resultName: ModelStringInput
+  resultImageUri: ModelStringInput
+  resultPercentage: ModelStringInput
+  and: [ModelResultConditionInput]
+  or: [ModelResultConditionInput]
+  not: ModelResultConditionInput
+}
+
+type ModelReciepeConnection {
+  items: [Reciepe]
+  nextToken: String
+}
+
+input ModelReciepeFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  reciepeName: ModelStringInput
+  reciepeImageUri: ModelStringInput
+  reciepeContent: ModelStringInput
+  reciepeIngredient: ModelStringInput
+  and: [ModelReciepeFilterInput]
+  or: [ModelReciepeFilterInput]
+  not: ModelReciepeFilterInput
+}
+
+input CreateReciepeInput {
+  id: ID
+  userID: ID!
+  familyID: ID!
+  reciepeName: String!
+  reciepeImageUri: String
+  reciepeContent: String
+  reciepeIngredient: String
+}
+
+input UpdateReciepeInput {
+  id: ID!
+  userID: ID
+  familyID: ID
+  reciepeName: String
+  reciepeImageUri: String
+  reciepeContent: String
+  reciepeIngredient: String
+}
+
+input DeleteReciepeInput {
+  id: ID
+}
+
+input ModelReciepeConditionInput {
+  userID: ModelIDInput
+  familyID: ModelIDInput
+  reciepeName: ModelStringInput
+  reciepeImageUri: ModelStringInput
+  reciepeContent: ModelStringInput
+  reciepeIngredient: ModelStringInput
+  and: [ModelReciepeConditionInput]
+  or: [ModelReciepeConditionInput]
+  not: ModelReciepeConditionInput
+}
+
+type ModelDiaryConnection {
+  items: [Diary]
+  nextToken: String
+}
+
+input ModelDiaryFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  name: ModelStringInput
+  content: ModelStringInput
+  and: [ModelDiaryFilterInput]
+  or: [ModelDiaryFilterInput]
+  not: ModelDiaryFilterInput
+}
+
+input CreateDiaryInput {
+  id: ID
+  userID: ID!
+  name: String!
+  content: String
+}
+
+input UpdateDiaryInput {
+  id: ID!
+  userID: ID
+  name: String
+  content: String
+}
+
+input DeleteDiaryInput {
+  id: ID
+}
+
+input ModelDiaryConditionInput {
+  userID: ModelIDInput
+  name: ModelStringInput
+  content: ModelStringInput
+  and: [ModelDiaryConditionInput]
+  or: [ModelDiaryConditionInput]
+  not: ModelDiaryConditionInput
+}
+
+type ModelTodoConnection {
+  items: [Todo]
+  nextToken: String
+}
+
+input ModelTodoFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  name: ModelStringInput
+  date: ModelStringInput
+  time: ModelStringInput
+  content: ModelStringInput
+  and: [ModelTodoFilterInput]
+  or: [ModelTodoFilterInput]
+  not: ModelTodoFilterInput
+}
+
+input CreateTodoInput {
+  id: ID
+  userID: ID!
+  name: String!
+  date: String
+  time: String
+  content: String
+}
+
+input UpdateTodoInput {
+  id: ID!
+  userID: ID
+  name: String
+  date: String
+  time: String
+  content: String
+}
+
+input DeleteTodoInput {
+  id: ID
+}
+
+input ModelTodoConditionInput {
+  userID: ModelIDInput
+  name: ModelStringInput
+  date: ModelStringInput
+  time: ModelStringInput
+  content: ModelStringInput
+  and: [ModelTodoConditionInput]
+  or: [ModelTodoConditionInput]
+  not: ModelTodoConditionInput
+}
+
+type ModelMedicineConnection {
+  items: [Medicine]
+  nextToken: String
+}
+
+input ModelMedicineFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  name: ModelStringInput
+  time: ModelStringInput
+  and: [ModelMedicineFilterInput]
+  or: [ModelMedicineFilterInput]
+  not: ModelMedicineFilterInput
+}
+
+input CreateMedicineInput {
+  id: ID
+  userID: ID!
+  name: String!
+  time: String!
+}
+
+input UpdateMedicineInput {
+  id: ID!
+  userID: ID
+  name: String
+  time: String
+}
+
+input DeleteMedicineInput {
+  id: ID
+}
+
+input ModelMedicineConditionInput {
+  userID: ModelIDInput
+  name: ModelStringInput
+  time: ModelStringInput
+  and: [ModelMedicineConditionInput]
+  or: [ModelMedicineConditionInput]
+  not: ModelMedicineConditionInput
+}
+
+input ModelIDKeyConditionInput {
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
+}

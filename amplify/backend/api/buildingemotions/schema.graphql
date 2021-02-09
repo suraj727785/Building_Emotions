@@ -1,0 +1,76 @@
+
+type User @model {
+  id: ID!
+  name: String!
+  familyUser: [FamilyUser] @connection(keyName: "byUser", fields: ["id"])
+  diary: [Diary] @connection(keyName: "byUser", fields: ["id"])
+  todo: [Todo] @connection(keyName: "byUser", fields: ["id"])
+  medicine: [Medicine] @connection(keyName: "byUser", fields: ["id"])
+}
+
+type FamilyUser
+@model
+@key(name: "byUser", fields: ["userID", "familyID"])
+@key(name: "byFamily", fields: ["familyID", "userID"]) {
+  id: ID!
+  userID: ID!
+  familyID: ID!
+  user: User @connection(fields: ["userID"])
+}
+type Family @model {
+  id: ID!
+  familyUsers: [FamilyUser] @connection(keyName: "byFamily", fields: ["id"])
+  healthReport:[HealthReport] @connection(keyName: "byFamily", fields: ["id"])
+  reciepe:[Reciepe] @connection(keyName: "byFamily", fields: ["id"])
+  result:[Result] @connection(keyName: "byFamily", fields: ["id"])
+} 
+type HealthReport @model
+@key(name: "byFamily", fields: ["familyID", "userID"])  {
+  id:ID!
+  userID:ID!
+  familyID:ID!
+  reportName:String!
+  reportImageUri:String!
+}
+type Result @model
+@key(name: "byFamily", fields: ["familyID", "userID"])  {
+  id:ID!
+  userID:ID!
+  familyID:ID!
+  resultName:String!
+  resultImageUri:String!
+  resultPercentage:String
+}
+type Reciepe @model
+@key(name: "byFamily", fields: ["familyID", "userID"])  {
+  id:ID!
+  userID:ID!
+  familyID:ID!
+  reciepeName:String!
+  reciepeImageUri:String
+  reciepeContent:String
+  reciepeIngredient:String
+}
+type Diary @model
+@key(name: "byUser", fields: ["userID", "name"]) {
+  id:ID!
+  userID:ID!
+  name:String!
+  content:String
+}
+type Todo @model
+@key(name: "byUser", fields: ["userID", "name"]) {
+  id:ID!
+  userID:ID!
+  name:String!
+  date:String
+  time:String
+  content:String
+}
+type Medicine @model
+@key(name: "byUser", fields: ["userID", "name"]) {
+  id:ID!
+  userID:ID!
+  name:String!
+  time:String!
+}

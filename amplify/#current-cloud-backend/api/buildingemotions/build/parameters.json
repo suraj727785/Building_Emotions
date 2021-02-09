@@ -1,0 +1,14 @@
+{
+    "CreateAPIKey": 0,
+    "AppSyncApiName": "buildingemotions",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authbuildingemotions4b32615d",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-buildingemotions-dev-140405-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/17349330ed7ad245bd0f3bdd654e310434b64a96"
+}
